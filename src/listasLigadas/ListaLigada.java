@@ -42,6 +42,14 @@ public class ListaLigada<T> {
         this.tamanho++;
     }
 
+    public void inserirPrimeiro(T elemento) {
+        inserirEm(elemento, 0);
+    }
+
+    public void inserirUltimo(T elemento) {
+        inserirEm(elemento, tamanho() - 1);
+    }
+
     public T recuperar(int posicao) {
         No<T> resultado = recuperarNo(posicao);
         return resultado.getElemento();
@@ -61,6 +69,57 @@ public class ListaLigada<T> {
             }
         }
         return resultado;
+    }
+
+    public boolean contem(T elemento) {
+        for (int i = 0; i < tamanho; i++) {
+            No<T> noAtual = recuperarNo(i);
+            if (noAtual.getElemento() != null && noAtual.getElemento().equals(elemento)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int indice(T elemento) {
+        for (int i = 0; i < tamanho; i++) {
+            No<T> noAtual = recuperarNo(i);
+            if (noAtual.getElemento() != null && noAtual.getElemento().equals(elemento)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public void remover(int posicao) {
+        if (posicao >= tamanho()) {
+            throw new IllegalArgumentException("Posição inválida");
+        }
+
+        if (posicao == 0) {
+            No<T> proximoNo = this.primeiroNo.getProximo();
+            this.primeiroNo.setProximo(null);
+            this.primeiroNo = proximoNo;
+        } else if (posicao == tamanho() - 1) {
+            No<T> penultimoNo = recuperarNo(tamanho() - 2);
+            penultimoNo.setProximo(null);
+            this.ultimoNo = penultimoNo;
+        } else {
+            No<T> noAnterior = recuperarNo(posicao - 1);
+            No<T> noProximo = recuperarNo(posicao + 1);
+            No<T> noAtual = recuperarNo(posicao);
+            noAnterior.setProximo(noProximo);
+            noAtual.setProximo(null);
+        }
+        this.tamanho--;
+    }
+
+    public void remover(T elemento) {
+        int posicao = indice(elemento);
+        if (posicao == -1) {
+            throw new IllegalArgumentException("Elemento inválido");
+        }
+        remover(posicao);
     }
 
     public boolean isEmpty() {
