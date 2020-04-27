@@ -11,7 +11,8 @@ public class Conjunto<T> {
     }
 
     public boolean inseir(T elemento) {
-        if (elemento != null && !contem(elemento)) {
+        //if (elemento != null && !contem(elemento)) {
+        if (elemento != null && !contemOtimizado(elemento)) {
             this.elementos.inserir(elemento);
             return true;
         }
@@ -19,7 +20,8 @@ public class Conjunto<T> {
     }
 
     public boolean inserirEm(int posicao, T elemento) {
-        if (elemento != null && !contem(elemento)) {
+        //if (elemento != null && !contem(elemento)) {
+        if (elemento != null && !contemOtimizado(elemento)) {
             this.elementos.inserirEm(elemento, posicao);
             return true;
         }
@@ -59,4 +61,15 @@ public class Conjunto<T> {
     public String toString() {
         return "Conjunto{" + elementos + '}';
     }
+
+    private boolean contemOtimizado(T elemento) {
+        for (int i = 0; this.elementos.tamanho() > i; i++) {
+            T result = this.elementos.recuperar(i);
+            if (result.hashCode() == elemento.hashCode()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
