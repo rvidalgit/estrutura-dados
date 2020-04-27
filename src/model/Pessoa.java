@@ -40,8 +40,7 @@ public class Pessoa {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pessoa pessoa = (Pessoa) o;
-        return id == pessoa.id &&
-                Objects.equals(nome, pessoa.nome);
+        return id == pessoa.id && Objects.equals(nome, pessoa.nome);
     }
 
     @Override
