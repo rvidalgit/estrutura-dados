@@ -58,7 +58,7 @@ public class TabelaEspalhamento<T> {
 
     private int gerarNumEspalhamento(T elemento) {
         int hash = elemento.hashCode();
-        return hash % numeroDeCategorias; //retorna um inteiro entre 0 e numeroDeCategorias
+        return Math.abs(hash % numeroDeCategorias); //retorna um inteiro entre 0 e numeroDeCategorias
     }
 
     @Override
