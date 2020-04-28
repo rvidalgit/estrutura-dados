@@ -17,13 +17,14 @@ public class TabelaEspalhamento<T> {
     }
 
     public boolean inserir(T elemento) {
+
+        if (elemento == null || this.contem(elemento)) {
+            return false;
+        }
+
         int categoria = gerarNumEspalhamento(elemento);
         //this.elementos.recuperar(categoria).inserir(elemento);
         ListaLigada<T> listaCategoria = this.elementos.recuperar(categoria);
-
-        if (listaCategoria.contem(elemento)) {
-            return false;
-        }
 
         listaCategoria.inserir(elemento);
         this.tamanho++;
